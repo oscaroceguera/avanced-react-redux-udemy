@@ -9,16 +9,32 @@ describe('Comments Box', () => {
     component = renderComponent(CommentBox)
   });
 
-  it('has the correct class', () => {
-    expect(component).to.have.class('commnet-box');
+  it('Has the correct class', () => {
+    expect(component).to.have.class('comment-box');
   });
 
-  it('has a text area', () => {
+  it('Has a text area', () => {
     expect(component.find('textarea')).to.exist;
   });
 
-  it('has a button', () => {
+  it('Has a button', () => {
     expect(component.find('button')).to.exist
+  });
+
+  describe('Entering some text', () => {
+
+    beforeEach(() => {
+      component.find('textarea').simulate('change', 'new coment 123')
+    });
+
+    it('Shows that text in the textarea', () => {
+      expect(component.find('textarea')).to.have.value('new coment 123')
+    })
+
+    it('When submited, clears the input', () => {
+      component.simulate('submit')
+      expect(component.find('textarea')).to.have.value('')
+    })
   });
 
 });
