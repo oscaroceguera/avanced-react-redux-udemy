@@ -1,23 +1,24 @@
-// Main stating point of the application
+// Main starting point of the application
 const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const app = express()
-const router = require('./router')
-const mongoose = require('mongoose')
+const app = express();
+const router = require('./router');
+const mongoose = require('mongoose');
+const cors = require('cors');
 
 // DB Setup
-mongoose.connect('mongodb://localhost:auth/auth')
+mongoose.connect('mongodb://localhost:auth/auth');
 
-// app setup
+// App Setup
 app.use(morgan('combined'));
-app.use(bodyParser.json({ type: '*/*'}))
-router(app)
+app.use(cors());
+app.use(bodyParser.json({ type: '*/*' }));
+router(app);
 
-// server setup
+// Server Setup
 const port = process.env.PORT || 3090;
-const server = http.createServer(app)
-server.listen(port, function(){
-	console.log('server listening on: ', port);
-})
+const server = http.createServer(app);
+server.listen(port);
+console.log('Server listening on:', port);
